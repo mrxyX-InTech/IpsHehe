@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ruang Belajar IPS Kelas 9 - Lengkap</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--k:#f7fbff;--g:#dbe7f3;--t:#1d2b53;--s:#ffe14d;--m:#e8505b;--sub:#5a6785}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 Nunito,system-ui,sans-serif;color:var(--t);background:var(--k) linear-gradient(var(--g) 1px,transparent 1px) 0 0/100% 26px;min-height:100vh}
+body::before{content:"";position:fixed;top:0;bottom:0;left:18px;width:2px;background:var(--m);opacity:.6}
+main{max-width:980px;margin:0 auto;padding:28px 16px 60px 34px}
+h1{font:400 42px/1.1 'Patrick Hand',cursive;margin:0 0 6px}
+h1 span{background:linear-gradient(transparent 58%,var(--s) 58%);padding:0 4px}
+.sub{color:var(--sub);margin:0 0 22px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.kartu{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;background:#fff;border:2px solid var(--t);border-radius:14px;padding:14px 16px;box-shadow:4px 4px 0 var(--w,#2f7dd1);transition:transform .08s,box-shadow .08s}
+.kartu:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--w)}
+.kartu:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--w)}
+.ik{font-size:36px;width:56px;height:56px;display:grid;place-items:center;background:var(--s);border-radius:12px;flex:none}
+.kartu h2{font-size:18px;margin:0}
+.kartu p{margin:2px 0 0;color:var(--sub);font-size:14px}
+.skor{display:inline-block;margin-top:6px;font-size:13px;font-weight:800;background:#d9f5e5;border-radius:6px;padding:0 8px}
+.note{background:#fff8c9;border-left:4px solid var(--s);padding:10px 12px;font-size:14px;margin-top:22px}
+code{background:#fff;padding:0 4px;border:1px solid var(--g);border-radius:4px}
+a:focus-visible{outline:3px solid var(--m);outline-offset:3px}
+
+/* MATERI & GAME */
+#contentArea{margin-top:28px;display:none}
+.section{background:#fff;border:2px solid var(--t);border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:5px 5px 0 #2f7dd1}
+.section h2{font:400 28px/1.2 'Patrick Hand',cursive;margin:0 0 10px}
+.section h3{font:700 18px/1.3 Nunito;margin:14px 0 6px}
+.ulMateri{margin:6px 0 0 18px}
+.tipBox{background:#eef2ff;border:1px dashed var(--t);border-radius:10px;padding:10px;margin:10px 0}
+.tipBox strong{color:#e8505b}
+.gameNav{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{background:var(--s);border:2px solid var(--t);border-radius:10px;padding:8px 14px;font-weight:800;cursor:pointer}
+.btn:active{transform:translate(1px,1px)}
+.btn.red{background:#ffc9c9}
+.btn.green{background:#d9f5e5}
+.btn.blue{background:#dbe7f3}
+
+/* GAME STYLES */
+.qBox{background:#f8fafc;border:1px dashed var(--t);border-radius:10px;padding:14px;margin:10px 0}
+.opt{display:block;background:#fff;border:1px solid var(--t);border-radius:8px;padding:8px 10px;margin:6px 0;cursor:pointer}
+.opt:hover{background:#f0f4ff}
+.opt.sel{background:#dbe7f3}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inputBox{border:1px solid var(--t);border-radius:8px;padding:8px;font:inherit;width:100%;max-width:400px}
+.matchGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.matchItem{background:#fff;border:2px solid var(--t);border-radius:10px;padding:10px;text-align:center;cursor:pointer}
+.matchItem.sel{background:#ffe14d}
+.matchItem.ok{background:#d9f5e5;border-color:#2a9d8f}
+.matchItem.no{background:#ffc9c9;border-color:#e8505b}
+.statBar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;font-weight:800}
+.stat{background:#eef2ff;border:1px solid var(--t);border-radius:8px;padding:6px 10px}
+.timer{font-family:'Patrick Hand',cursive;font-size:22px}
+.feedback{background:#fff3cd;border-left:4px solid #ffc107;padding:10px;margin:10px 0;border-radius:6px}
+.feedback strong{color:#856404}
+</style>
+</head>
+<body>
+<main>
+  <h1><span>Ruang Belajar IPS Kelas 9</span></h1>
+  <p class="sub" id="sub">Belajar materi + tips hafalan + game interaktif.</p>
+
+  <div class="grid" id="menuGrid"></div>
+
+  <div class="note">
+    <strong>Cara pakai:</strong> Buka bagian "Materi & Tips" dulu untuk baca penjelasan dan trik hafalan. Setelah itu, coba game untuk latihan. Kalau salah, akan muncul tips agar tidak mengulang kesalahan yang sama.
+  </div>
+
+  <!-- AREA KONTEN (MATERI + GAME) -->
+  <div id="contentArea"></div>
+</main>
+
+<script>
+/* ===== DATA MATERI LENGKAP ===== */
+const MATERI = {
+  perubahanSosial: {
+    judul: "Perubahan Sosial",
+    konten: [
+      "<strong>Pengertian:</strong> Perubahan sosial adalah perubahan dalam struktur, fungsi, nilai, norma, dan pola perilaku masyarakat.",
+      "<strong>Contoh perubahan sosial:</strong>",
+      "• Perubahan besar: industrialisasi, urbanisasi.",
+      "• Perubahan kecil: perubahan mode pakaian, gaya rambut.",
+      "• Perubahan direncanakan: pembangunan jalan, program KB.",
+      "• Perubahan tidak direncanakan: bencana alam, banjir yang mengubah pola permukiman."
+    ],
+    tips: [
+      "Ingat kata kunci: <strong>\"Struktur – Fungsi – Nilai – Norma – Pola Perilaku\"</strong>. Bisa disingkat <strong>\"SFVNP\"</strong>.",
+      "Untuk contoh, ingat 4 kategori: <strong>Besar, Kecil, Direncanakan, Tidak Direncanakan</strong>.",
+      "Contoh cepat: <strong>\"Jalan\"</strong> = direncanakan, <strong>\"Banjir\"</strong> = tidak direncanakan, <strong>\"Pakaian\"</strong> = kecil, <strong>\"Pabrik\"</strong> = besar/industrialisasi."
+    ]
+  },
+  aspekPerubahan: {
+    judul: "Aspek Perubahan Sosial Budaya",
+    konten: [
+      "Perubahan sosial budaya terlihat pada beberapa aspek:",
+      "• <strong>Lembaga sosial:</strong> keluarga, pendidikan, agama.",
+      "• <strong>Nilai dan norma:</strong> sikap terhadap kerja, waktu, sopan santun.",
+      "• <strong>Pola perilaku:</strong> cara bergaul, konsumsi, gaya hidup.",
+      "• <strong>Organisasi sosial:</strong> komunitas online, organisasi profesi.",
+      "• <strong>Lapisan sosial:</strong> mobilitas sosial karena pendidikan/teknologi."
+    ],
+    tips: [
+      "Hafal 5 aspek dengan singkatan: <strong>\"LeNiPOrL\"</strong> = <strong>Le</strong>mbaga, <strong>Ni</strong>lai & norma, <strong>Po</strong>la perilaku, <strong>Or</strong>ganisasi, <strong>L</strong>apisan sosial.",
+      "Setiap kali ada soal aspek, cek apakah jawabannya masuk ke salah satu dari 5 ini."
+    ]
+  },
+  teknologiKomunikasi: {
+    judul: "Perubahan Sosial Akibat Teknologi Komunikasi",
+    konten: [
+      "Teknologi komunikasi (smartphone, media sosial, internet) menyebabkan:",
+      "• Interaksi lebih cepat dan lintas wilayah.",
+      "• Munculnya komunitas virtual dan perubahan cara bersosialisasi.",
+      "• Penyebaran informasi dan budaya asing lebih cepat (akulturasi, westernisasi).",
+      "• Perubahan pola kerja (WFH, ekonomi digital) dan pendidikan (e-learning)."
+    ],
+    tips: [
+      "Kata kunci: <strong>\"Cepat – Virtual – Asing – Digital\"</strong>.",
+      "Ingat contoh nyata: <strong>medsos</strong> = interaksi cepat + budaya asing, <strong>Zoom</strong> = e-learning/WFH."
+    ]
+  },
+  globalisasi: {
+    judul: "Globalisasi",
+    konten: [
+      "<strong>Pengertian:</strong> Globalisasi adalah proses mendunia yang membuat batas antarnegara semakin terbuka sehingga terjadi pertukaran barang, jasa, informasi, teknologi, budaya, dan manusia.",
+      "<strong>Contoh globalisasi:</strong>",
+      "• Produk asing mudah didapat (smartphone, fast food).",
+      "• Kerja sama internasional (perdagangan, investasi).",
+      "• Budaya populer global (K-pop, film Hollywood).",
+      "• Media sosial menghubungkan orang lintas negara."
+    ],
+    tips: [
+      "Kata kunci: <strong>\"Mendunia – Terbuka – Pertukaran\"</strong>.",
+      "Contoh gampang: <strong>\"K-Pop, iPhone, Gojek (teknologi), YouTube\"</strong>."
+    ]
+  },
+  dampakGlobal: {
+    judul: "Dampak Positif & Negatif Globalisasi",
+    konten: [
+      "<strong>Dampak positif:</strong>",
+      "• Ekonomi: pasar lebih luas, ekspor-impor meningkat, inovasi bisnis.",
+      "• Sosial-budaya: pertukaran budaya, kemudahan komunikasi lintas negara.",
+      "• Pendidikan: akses informasi global, beasiswa, pertukaran pelajar.",
+      "• Teknologi: IPTEK berkembang, muncul inovasi (ojek online, e-commerce).",
+      "<strong>Dampak negatif:</strong>",
+      "• Ekonomi: persaingan produk impor melemahkan UMKM, ketergantungan impor.",
+      "• Sosial-budaya: gaya hidup konsumtif, westernisasi, menurunnya nilai budaya lokal.",
+      "• Sosial: kesenjangan ekonomi, kriminalitas, individualisme.",
+      "• Lingkungan: pencemaran akibat industrialisasi dan konsumsi berlebihan."
+    ],
+    tips: [
+      "Positif = <strong>\"Luas – Tukar – Akses – Inovasi\"</strong>.",
+      "Negatif = <strong>\"Saing – Konsumtif – Barat – Sempit – Kriminal – Rusak\"</strong>.",
+      "Kalau soal pilihan ganda, cek: kalau terdengar \"keren\" dan \"maju\" biasanya positif, kalau \"masalah\" biasanya negatif."
+    ]
+  },
+  modernisasi: {
+    judul: "Modernisasi & Hubungannya dengan Teknologi",
+    konten: [
+      "<strong>Pengertian:</strong> Modernisasi adalah proses perubahan masyarakat dari tradisional menuju kehidupan yang lebih maju, rasional, dan efisien, biasanya ditandai dengan penggunaan teknologi dan ilmu pengetahuan.",
+      "<strong>Hubungan dengan teknologi:</strong> Teknologi menjadi pendorong utama modernisasi karena meningkatkan produktivitas, efisiensi, dan mengubah pola pikir serta cara hidup masyarakat (misal: mekanisasi pertanian, otomatisasi industri, digitalisasi layanan)."
+    ],
+    tips: [
+      "Kata kunci: <strong>\"Tradisional → Maju – Rasional – Efisien – Teknologi\"</strong>.",
+      "Hubungan dengan teknologi: ingat <strong>\"Tekno → Produksi ↑ – Efisien – Pola pikir berubah\"</strong>."
+    ]
+  },
+  dampakModern: {
+    judul: "Dampak Positif & Negatif Modernisasi",
+    konten: [
+      "<strong>Dampak positif:</strong>",
+      "• Meningkatkan hasil produksi (pertanian, industri).",
+      "• Efektivitas dan efisiensi (tiket online, transfer digital).",
+      "• Taraf hidup naik, ekonomi tumbuh.",
+      "• Komunikasi cepat, pariwisata berkembang.",
+      "<strong>Dampak negatif:</strong>",
+      "• Kesenjangan sosial (yang punya akses teknologi vs tidak).",
+      "• Pengangguran struktural (tenaga kerja terganti mesin/AI).",
+      "• Kerusakan lingkungan (limbah industri, eksploitasi SDA).",
+      "• Perubahan nilai: individualisme, konsumerisme."
+    ],
+    tips: [
+      "Positif = <strong>\"Produksi ↑ – Efisien – Hidup ↑ – Cepat\"</strong>.",
+      "Negatif = <strong>\"Sempit – Nganggur – Rusak – Individualis\"</strong>."
+    ]
+  },
+  uang: {
+    judul: "Uang: Pengertian, Fungsi, Jenis, Syarat, Nilai",
+    konten: [
+      "<strong>Pengertian:</strong> Uang adalah alat pembayaran yang sah dan diterima umum untuk memperlancar transaksi dalam perekonomian.",
+      "<strong>Fungsi uang:</strong>",
+      "• Fungsi asli: 1) Alat tukar, 2) Satuan hitung.",
+      "• Fungsi turunan: 3) Penimbun kekayaan, 4) Pembayaran utang, 5) Pemindah kekayaan, 6) Standar pembayaran masa depan.",
+      "<strong>Jenis uang:</strong>",
+      "• Uang kartal: uang kertas dan logam.",
+      "• Uang giral: simpanan di bank (cek, bilyet giro, kartu debit/kredit).",
+      "<strong>Syarat uang:</strong> Diterima umum, nilai stabil, tahan lama, mudah dibawa & dibagi, sulit dipalsukan, jumlah terbatas tapi cukup.",
+      "<strong>Nilai uang:</strong>",
+      "• Nilai nominal: nilai yang tertera (Rp10.000).",
+      "• Nilai intrinsik: nilai bahan pembuatan.",
+      "• Nilai riil: daya beli terhadap barang/jasa.",
+      "• Nilai eksternal: nilai terhadap mata uang asing (kurs)."
+    ],
+    tips: [
+      "Fungsi asli = <strong>\"Tukar & Hitung\"</strong> (2 saja). Sisanya turunan.",
+      "Jenis: <strong>Kartal = Kertas & Logam</strong> (yang kamu pegang), <strong>Giral = Giro/cek/kartu</strong> (di bank).",
+      "Nilai: <strong>Nominal = Angka di uang</strong>, <strong>Intrinsik = Bahan</strong>, <strong>Riil = Daya Beli</strong>, <strong>Eksternal = Kurs</strong>.",
+      "Singkatan nilai: <strong>NIRE</strong> = Nominal, Intrinsik, Riil, Eksternal."
+    ]
+  }
+};
+
+/* ===== GAME DATA ===== */
+const GAMES = [
+  {id:"kuisPerubahanSosial", ikon:"📘", judul:"Kuis Perubahan Sosial", topik:"perubahanSosial"},
+  {id:"kuisAspek", ikon:"🧩", judul:"Kuis Aspek Perubahan", topik:"aspekPerubahan"},
+  {id:"kuisTekno", ikon:"📱", judul:"Kuis Teknologi & Perubahan", topik:"teknologiKomunikasi"},
+  {id:"kuisGlobal", ikon:"🌍", judul:"Kuis Globalisasi", topik:"globalisasi"},
+  {id:"klasDampakGlobal", ikon:"⚖️", judul:"Klasifikasi Dampak Globalisasi", topik:"dampakGlobal"},
+  {id:"kuisModern", ikon:"🏭", judul:"Kuis Modernisasi", topik:"modernisasi"},
+  {id:"klasDampakModern", ikon:"📊", judul:"Klasifikasi Dampak Modernisasi", topik:"dampakModern"},
+  {id:"fungsiUang", ikon:"💰", judul:"Fungsi Uang", topik:"uang"},
+  {id:"nilaiUang", ikon:"🏷️", judul:"Nilai Uang", topik:"uang"},
+  {id:"campurSemua", ikon:"🎯", judul:"Kuis Campur Semua Materi", topik:"all"}
+];
+
+/* ===== UTIL ===== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle = arr => arr.sort(()=>Math.random()-0.5);
+
+let currentGame = null, currentTopik = null;
+let score = 0, total = 0, timerId = null, timeLeft = 0;
+
+/* ===== RENDER MENU TOPIK & GAME ===== */
+function renderMenu(){
+  const topikList = Object.keys(MATERI);
+  $('#menuGrid').innerHTML = `
+    <div style="grid-column:1/-1"><h2 style="font:'Patrick Hand',cursive;font-size:28px;margin:0 0 8px">Materi & Tips</h2></div>
+    ${topikList.map(k=>`
+      <a class="kartu" href="#" data-topik="${k}" style="--w:#2f7dd1">
+        <div class="ik">📖</div>
+        <div>
+          <h2>${MATERI[k].judul}</h2>
+          <p>Baca materi + tips hafalan</p>
+        </div>
+      </a>
+    `).join('')}
+    <div style="grid-column:1/-1;margin-top:10px"><h2 style="font:'Patrick Hand',cursive;font-size:28px;margin:0 0 8px">Game & Latihan</h2></div>
+    ${GAMES.map(g=>`
+      <a class="kartu" href="#" data-game="${g.id}" style="--w:#2f7dd1">
+        <div class="ik">${g.ikon}</div>
+        <div>
+          <h2>${g.judul}</h2>
+          <p>Latihan soal + feedback kalau salah</p>
+          ${getHighScore(g.id)?`<span class="skor">Skor terbaik ${getHighScore(g.id)}%</span>`:''}
+        </div>
+      </a>
+    `).join('')}
+  `;
+
+  $('#menuGrid').addEventListener('click', e=>{
+    const t = e.target.closest('a[data-topik]');
+    const g = e.target.closest('a[data-game]');
+    if(t){ e.preventDefault(); bukaTopik(t.dataset.topik); }
+    if(g){ e.preventDefault(); startGame(g.dataset.game); }
+  });
+}
+
+function getHighScore(id){
+  try { return localStorage.getItem('ipsScore:'+id); } catch { return null; }
+}
+function saveScore(id,pct){
+  try {
+    const old = parseInt(localStorage.getItem('ipsScore:'+id)||'0',10);
+    if(pct>old) localStorage.setItem('ipsScore:'+id,pct);
+  } catch {}
+}
+
+/* ===== BUKA MATERI ===== */
+function bukaTopik(k){
+  const m = MATERI[k];
+  $('#sub').textContent = `Materi: ${m.judul}`;
+  $('#menuGrid').style.display = 'none';
+  $('#contentArea').style.display = 'block';
+  $('#contentArea').innerHTML = `
+    <div class="section">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h2>${m.judul}</h2>
+        <button class="btn blue" id="btnKembali">← Kembali ke Menu</button>
+      </div>
+      <h3>📚 Materi</h3>
+      <ul class="ulMateri">${m.konten.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <h3>💡 Tips & Trik Hafalan</h3>
+      <div class="tipBox">${m.tips.map(x=>`<div>• ${x}</div>`).join('')}</div>
+      <div class="gameNav">
+        ${getGameButtonsForTopik(k)}
+      </div>
+    </div>
+  `;
+  $('#btnKembali').onclick = ()=>{
+    $('#contentArea').style.display = 'none';
+    $('#menuGrid').style.display = 'grid';
+    $('#sub').textContent = 'Belajar materi + tips hafalan + game interaktif.';
+  };
+}
+
+function getGameButtonsForTopik(k){
+  const list = GAMES.filter(g=>g.topik===k || (k==='uang' && (g.id==='fungsiUang'||g.id==='nilaiUang')) || (k==='perubahanSosial' && g.id==='kuisPerubahanSosial'));
+  if(list.length===0) return '';
+  return list.map(g=>`<button class="btn" data-game="${g.id}">🎮 Main: ${g.judul}</button>`).join('');
+}
+
+$('#contentArea').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-game]');
+  if(b){ startGame(b.dataset.game); }
+});
+
+/* ===== GAME ENGINE UMUM ===== */
+function startGame(id){
+  currentGame = id;
+  score = 0; total = 0;
+  const g = GAMES.find(x=>x.id===id);
+  currentTopik = g?.topik || null;
+
+  // Kalau dari menu utama, sembunyikan menu, tampilkan area game
+  if($('#menuGrid').style.display !== 'none'){
+    $('#sub').textContent = `Game: ${g?.judul || 'Latihan'}`;
+    $('#menuGrid').style.display = 'none';
+    $('#contentArea').style.display = 'block';
+  }
+
+  $('#contentArea').innerHTML = `
+    <div class="section">
+      <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px">
+        <h2>${g?.judul || 'Game'}</h2>
+        <button class="btn red" id="btnTutupGame">Tutup Game</button>
+      </div>
+      <div class="statBar" id="statBar"></div>
+      <div id="gameContent"></div>
+    </div>
+    <div class="section">
+      <h3>📖 Materi Singkat & Tips</h3>
+      <div id="materiSingkat"></div>
+    </div>
+  `;
+
+  $('#btnTutupGame').onclick = ()=>{
+    if(timerId) clearInterval(timerId);
+    $('#contentArea').style.display = 'none';
+    $('#menuGrid').style.display = 'grid';
+    $('#sub').textContent = 'Belajar materi + tips hafalan + game interaktif.';
+    currentGame = null;
+  };
+
+  // Tampilkan materi singkat sesuai topik
+  tampilkanMateriSingkat(g?.topik);
+
+  switch(id){
+    case 'kuisPerubahanSosial': kuisPerubahanSosial(); break;
+    case 'kuisAspek': kuisAspek(); break;
+    case 'kuisTekno': kuisTekno(); break;
+    case 'kuisGlobal': kuisGlobal(); break;
+    case 'klasDampakGlobal': klasDampakGlobal(); break;
+    case 'kuisModern': kuisModern(); break;
+    case 'klasDampakModern': klasDampakModern(); break;
+    case 'fungsiUang': fungsiUang(); break;
+    case 'nilaiUang': nilaiUang(); break;
+    case 'campurSemua': campurSemua(); break;
+  }
+}
+
+function tampilkanMateriSingkat(topik){
+  if(!topik || !MATERI[topik]){
+    $('#materiSingkat').innerHTML = '<p>Baca materi lengkap di bagian "Materi & Tips" di menu utama.</p>';
+    return;
+  }
+  const m = MATERI[topik];
+  $('#materiSingkat').innerHTML = `
+    <ul class="ulMateri">
+      ${m.konten.slice(0,4).map(x=>`<li>${x}</li>`).join('')}
+    </ul>
+    <div class="tipBox"><strong>Tips:</strong> ${m.tips[0]||''}</div>
+  `;
+}
+
+function updateStat(extra=''){
+  const pct = total ? Math.round(score/total*100) : 0;
+  $('#statBar').innerHTML = `
+    <div class="stat">Skor: ${score}/${total} (${pct}%)</div>
+    ${extra}
+  `;
+}
+
+function feedbackSalah(pesan, trik){
+  return `
+    <div class="feedback">
+      <strong>❌ Jawaban kurang tepat.</strong><br>
+      ${pesan}<br>
+      <strong>💡 Trik agar tidak salah lagi:</strong> ${trik}
+    </div>
+  `;
+}
+
+function endGame(){
+  if(timerId) clearInterval(timerId);
+  const pct = total ? Math.round(score/total*100) : 0;
+  saveScore(currentGame, pct);
+  $('#gameContent').innerHTML += `
+    <div class="section" style="text-align:center;margin-top:14px">
+      <h3 style="margin:0 0 6px">🎉 Selesai!</h3>
+      <p style="margin:0">Skor kamu: <strong>${score}/${total}</strong> (${pct}%)</p>
+      <p style="margin:6px 0 0;color:var(--sub)">Kerjakan lagi untuk meningkatkan skor.</p>
+      <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn" id="btnMainLagi">Main Lagi</button>
+        <button class="btn blue" id="btnLihatMateri">📖 Lihat Materi Lengkap</button>
+        <button class="btn red" id="btnTutupAkhir">Tutup</button>
+      </div>
+    </div>
+  `;
+  $('#btnMainLagi').onclick = ()=> startGame(currentGame);
+  $('#btnLihatMateri').onclick = ()=>{
+    if(currentTopik && MATERI[currentTopik]) bukaTopik(currentTopik);
+  };
+  $('#btnTutupAkhir').onclick = ()=> $('#btnTutupGame').click();
+}
+
+/* ===== 1. KUIS PERUBAHAN SOSIAL ===== */
+function kuisPerubahanSosial(){
+  const Q = [
+    {
+      q:"Perubahan sosial adalah perubahan dalam…",
+      a:["Struktur, fungsi, nilai, norma, dan pola perilaku masyarakat","Hanya nilai dan norma","Hukum dan peraturan pemerintah","Iklim dan cuaca"],
+      correct:0,
+      trik:"Ingat singkatan <strong>SFVNP</strong>: Struktur, Fungsi, Nilai, Norma, Pola perilaku."
+    },
+    {
+      q:"Contoh perubahan sosial yang direncanakan adalah…",
+      a:["Bencana alam","Pembangunan jalan","Perubahan mode pakaian","Urbanisasi spontan"],
+      correct:1,
+      trik:"Direncanakan = ada program/proyek pemerintah atau masyarakat, contoh: <strong>pembangunan, program KB</strong>."
+    },
+    {
+      q:"Aspek perubahan sosial budaya meliputi…",
+      a:["Lembaga sosial, nilai, norma, pola perilaku","Hanya ekonomi","Hanya politik","Hanya teknologi"],
+      correct:0,
+      trik:"Ingat <strong>LeNiPOrL</strong>: Lembaga, Nilai & norma, Pola perilaku, Organisasi, Lapisan sosial."
+    },
+    {
+      q:"Dampak teknologi komunikasi terhadap perubahan sosial adalah…",
+      a:["Interaksi lebih cepat & komunitas virtual","Masyarakat jadi lebih tertutup","Tidak ada dampak","Hanya dampak ekonomi"],
+      correct:0,
+      trik:"Kata kunci: <strong>Cepat – Virtual – Asing – Digital</strong>."
+    },
+    {
+      q:"Perubahan kecil dalam perubahan sosial contohnya…",
+      a:["Industrialisasi","Urbanisasi besar","Perubahan mode pakaian","Revolusi"],
+      correct:2,
+      trik:"Perubahan kecil = hal sehari-hari seperti <strong>pakaian, gaya rambut, hobi</strong>."
+    },
+    {
+      q:"Perubahan akibat bencana alam termasuk…",
+      a:["Perubahan direncanakan","Perubahan tidak direncanakan","Modernisasi","Globalisasi"],
+      correct:1,
+      trik:"Bencana = tidak direncanakan, terjadi tiba-tiba."
+    }
+  ];
+  let i=0;
+  function showQ(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>${q.q}</div>
+      ${q.a.map((opt,idx)=>`<div class="opt" data-idx="${idx}">${opt}</div>`).join('')}
+      <div id="fb${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        const correct = +el.dataset.idx===q.correct;
+        if(correct){
+          score++;
+        } else {
+          $(`#fb${i}`).innerHTML = feedbackSalah("Jawaban yang benar: "+q.a[q.correct], q.trik);
+        }
+        total++;
+        updateStat();
+        i++;
+        setTimeout(showQ, 1200);
+      };
+    });
+  }
+  updateStat();
+  showQ();
+}
+
+/* ===== 2. KUIS ASPEK ===== */
+function kuisAspek(){
+  const Q = [
+    {
+      q:"Manakah yang termasuk aspek perubahan sosial budaya?",
+      a:["Lembaga sosial","Curah hujan","Jenis tanah","Kecepatan angin"],
+      correct:0,
+      trik:"Aspek perubahan sosial selalu terkait <strong>manusia & masyarakat</strong>, bukan alam fisik."
+    },
+    {
+      q:"Nilai dan norma termasuk aspek…",
+      a:["Perubahan sosial budaya","Fisik geografis","Iklim","Topografi"],
+      correct:0,
+      trik:"Nilai & norma = aturan & sikap masyarakat → pasti aspek sosial budaya."
+    },
+    {
+      q:"Komunitas online dan organisasi profesi termasuk aspek…",
+      a:["Organisasi sosial","Lapisan tanah","Iklim","Flora"],
+      correct:0,
+      trik:"Organisasi = kelompok orang dengan tujuan tertentu."
+    }
+  ];
+  let i=0;
+  function show(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>${q.q}</div>
+      ${q.a.map((opt,idx)=>`<div class="opt" data-idx="${idx}">${opt}</div>`).join('')}
+      <div id="fbAspek${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        const correct = +el.dataset.idx===q.correct;
+        if(!correct){
+          $(`#fbAspek${i}`).innerHTML = feedbackSalah("Jawaban benar: "+q.a[q.correct], q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 3. KUIS TEKNO KOMUNIKASI ===== */
+function kuisTekno(){
+  const Q = [
+    {
+      q:"Salah satu dampak teknologi komunikasi adalah…",
+      a:["Interaksi lebih cepat","Masyarakat semakin tertutup","Tidak ada perubahan","Hanya dampak ekonomi"],
+      correct:0,
+      trik:"Tekno komunikasi = <strong>mempercepat & memperluas</strong> interaksi."
+    },
+    {
+      q:"Munculnya komunitas virtual adalah dampak dari…",
+      a:["Teknologi komunikasi","Perubahan iklim","Pertanian tradisional","Isolasi daerah"],
+      correct:0,
+      trik:"Komunitas virtual = kelompok online → butuh internet & medsos."
+    }
+  ];
+  let i=0;
+  function show(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>${q.q}</div>
+      ${q.a.map((opt,idx)=>`<div class="opt" data-idx="${idx}">${opt}</div>`).join('')}
+      <div id="fbTekno${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        if(+el.dataset.idx!==q.correct){
+          $(`#fbTekno${i}`).innerHTML = feedbackSalah("Benar: "+q.a[q.correct], q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 4. KUIS GLOBALISASI ===== */
+function kuisGlobal(){
+  const Q = [
+    {
+      q:"Globalisasi adalah proses…",
+      a:["Mendunia yang membuat batas antarnegara terbuka","Lokal dalam satu desa","Regional satu provinsi","Nasional dalam satu negara"],
+      correct:0,
+      trik:"Kata kunci globalisasi: <strong>\"Mendunia – Terbuka – Pertukaran\"</strong>."
+    },
+    {
+      q:"Contoh globalisasi adalah…",
+      a:["K-Pop & film Hollywood","Tradisi satu suku","Pasar tradisional satu kota","Gotong royong satu RT"],
+      correct:0,
+      trik:"Global = lintas negara, contoh: <strong>K-Pop, iPhone, YouTube, Netflix</strong>."
+    }
+  ];
+  let i=0;
+  function show(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>${q.q}</div>
+      ${q.a.map((opt,idx)=>`<div class="opt" data-idx="${idx}">${opt}</div>`).join('')}
+      <div id="fbGlobal${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        if(+el.dataset.idx!==q.correct){
+          $(`#fbGlobal${i}`).innerHTML = feedbackSalah("Benar: "+q.a[q.correct], q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 5. KLASIFIKASI DAMPAK GLOBALISASI ===== */
+function klasDampakGlobal(){
+  const items = shuffle([
+    {t:"Pasar lebih luas", k:"positif", trik:"Pasar luas = peluang ekonomi ↑ → positif."},
+    {t:"Westernisasi", k:"negatif", trik:"Westernisasi = budaya lokal tergeser → negatif."},
+    {t:"Kesenjangan ekonomi", k:"negatif", trik:"Kesenjangan = masalah sosial → negatif."},
+    {t:"Pertukaran budaya", k:"positif", trik:"Pertukaran budaya = saling mengenal → positif."},
+    {t:"Inovasi teknologi", k:"positif", trik:"Inovasi = kemajuan → positif."},
+    {t:"Kerusakan lingkungan", k:"negatif", trik:"Rusak lingkungan = masalah → negatif."}
+  ]);
+  let idx=0;
+  function show(){
+    if(idx>=items.length){ endGame(); return; }
+    const it=items[idx];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${idx+1}/${items.length}</strong><br>Klasifikasikan dampak ini:<br><strong>${it.t}</strong></div>
+      <div class="row" style="gap:10px">
+        <button class="btn green" data-k="positif">Positif</button>
+        <button class="btn red" data-k="negatif">Negatif</button>
+      </div>
+      <div id="fbKlasGlobal${idx}"></div>
+    `;
+    $('#gameContent').querySelectorAll('button').forEach(b=>{
+      b.onclick=()=>{
+        if(b.dataset.k!==it.k){
+          $(`#fbKlasGlobal${idx}`).innerHTML = feedbackSalah(
+            `Jawaban benar: <strong>${it.k}</strong>.`,
+            it.trik
+          );
+        } else score++;
+        total++;
+        updateStat();
+        idx++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 6. KUIS MODERNISASI ===== */
+function kuisModern(){
+  const Q = [
+    {
+      q:"Modernisasi adalah proses perubahan dari…",
+      a:["Tradisional ke kehidupan maju, rasional, efisien","Maju ke tradisional","Desa ke desa lain","Satu suku ke suku lain"],
+      correct:0,
+      trik:"Kata kunci: <strong>\"Tradisional → Maju – Rasional – Efisien – Teknologi\"</strong>."
+    },
+    {
+      q:"Hubungan modernisasi dengan teknologi adalah…",
+      a:["Teknologi mendorong produktivitas & perubahan pola pikir","Teknologi tidak berpengaruh","Teknologi hanya untuk hiburan","Teknologi memperlambat modernisasi"],
+      correct:0,
+      trik:"Ingat: <strong>Tekno → Produksi ↑ – Efisien – Pola pikir berubah</strong>."
+    }
+  ];
+  let i=0;
+  function show(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>${q.q}</div>
+      ${q.a.map((opt,idx)=>`<div class="opt" data-idx="${idx}">${opt}</div>`).join('')}
+      <div id="fbModern${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        if(+el.dataset.idx!==q.correct){
+          $(`#fbModern${i}`).innerHTML = feedbackSalah("Benar: "+q.a[q.correct], q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 7. KLASIFIKASI DAMPAK MODERNISASI ===== */
+function klasDampakModern(){
+  const items = shuffle([
+    {t:"Produksi meningkat", k:"positif", trik:"Produksi ↑ = ekonomi maju → positif."},
+    {t:"Kesenjangan sosial", k:"negatif", trik:"Kesenjangan = masalah → negatif."},
+    {t:"Efektivitas & efisiensi", k:"positif", trik:"Efisien = kerja lebih mudah → positif."},
+    {t:"Kerusakan lingkungan", k:"negatif", trik:"Rusak lingkungan = negatif."},
+    {t:"Individualisme", k:"negatif", trik:"Individualisme = nilai sosial melemah → negatif."}
+  ]);
+  let idx=0;
+  function show(){
+    if(idx>=items.length){ endGame(); return; }
+    const it=items[idx];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${idx+1}/${items.length}</strong><br>Klasifikasikan dampak modernisasi:<br><strong>${it.t}</strong></div>
+      <div class="row" style="gap:10px">
+        <button class="btn green" data-k="positif">Positif</button>
+        <button class="btn red" data-k="negatif">Negatif</button>
+      </div>
+      <div id="fbKlasModern${idx}"></div>
+    `;
+    $('#gameContent').querySelectorAll('button').forEach(b=>{
+      b.onclick=()=>{
+        if(b.dataset.k!==it.k){
+          $(`#fbKlasModern${idx}`).innerHTML = feedbackSalah(`Benar: <strong>${it.k}</strong>.`, it.trik);
+        } else score++;
+        total++;
+        updateStat();
+        idx++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 8. FUNGSI UANG ===== */
+function fungsiUang(){
+  const Q = [
+    {
+      s:"Alat tukar",
+      k:"asli",
+      trik:"Fungsi asli uang hanya 2: <strong>alat tukar & satuan hitung</strong>."
+    },
+    {
+      s:"Satuan hitung",
+      k:"asli",
+      trik:"Satuan hitung = untuk mengukur harga → fungsi asli."
+    },
+    {
+      s:"Penimbun kekayaan",
+      k:"turunan",
+      trik:"Selain 2 fungsi asli, sisanya = fungsi turunan."
+    },
+    {
+      s:"Pembayaran utang",
+      k:"turunan",
+      trik:"Bayar utang = pakai uang tapi bukan fungsi utama → turunan."
+    },
+    {
+      s:"Pemindah kekayaan",
+      k:"turunan",
+      trik:"Memindah kekayaan (mis. jual tanah → uang) = turunan."
+    }
+  ];
+  let i=0;
+  function show(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>Fungsi uang: <strong>${q.s}</strong> termasuk fungsi…</div>
+      <div class="row" style="gap:10px">
+        <button class="btn" data-j="asli">Asli</button>
+        <button class="btn" data-j="turunan">Turunan</button>
+      </div>
+      <div id="fbFungsi${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('button').forEach(b=>{
+      b.onclick=()=>{
+        if(b.dataset.j!==q.k){
+          $(`#fbFungsi${i}`).innerHTML = feedbackSalah(`Benar: <strong>${q.k}</strong>.`, q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 9. NILAI UANG ===== */
+function nilaiUang(){
+  const Q = [
+    {
+      s:"Nilai yang tertera pada uang (mis. Rp10.000)",
+      j:"Nominal",
+      trik:"Nominal = angka yang <strong>tertulis</strong> di uang."
+    },
+    {
+      s:"Nilai bahan pembuatan uang (logam/kertas)",
+      j:"Intrinsik",
+      trik:"Intrinsik = nilai <strong>bahan</strong> (intrinsik = dalam)."
+    },
+    {
+      s:"Daya beli uang terhadap barang/jasa",
+      j:"Riil",
+      trik:"Riil = nyata, berapa banyak barang yang bisa dibeli."
+    },
+    {
+      s:"Nilai uang dalam hubungannya dengan mata uang asing",
+      j:"Eksternal",
+      trik:"Eksternal = luar, yaitu terhadap <strong>mata uang asing (kurs)</strong>."
+    }
+  ];
+  let i=0;
+  function show(){
+    if(i>=Q.length){ endGame(); return; }
+    const q=Q[i];
+    const opts = shuffle(["Nominal","Intrinsik","Riil","Eksternal","Fungsional","Simbolik"]).slice(0,4);
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${Q.length}</strong><br>Jenis nilai uang: ${q.s}</div>
+      ${opts.map(o=>`<div class="opt">${o}</div>`).join('')}
+      <div id="fbNilai${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        if(el.textContent!==q.j){
+          $(`#fbNilai${i}`).innerHTML = feedbackSalah(`Benar: <strong>${q.j}</strong>.`, q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== 10. CAMPUR SEMUA ===== */
+function campurSemua(){
+  const bank = [
+    {
+      q:"Perubahan sosial adalah perubahan dalam…",
+      a:["Struktur, fungsi, nilai, norma, pola perilaku","Hukum saja","Ekonomi saja","Iklim"],
+      correct:0,
+      topik:"perubahanSosial",
+      trik:"Ingat <strong>SFVNP</strong>."
+    },
+    {
+      q:"Globalisasi adalah proses…",
+      a:["Mendunia","Lokal","Regional","Nasional"],
+      correct:0,
+      topik:"globalisasi",
+      trik:"Global = mendunia."
+    },
+    {
+      q:"Fungsi asli uang adalah…",
+      a:["Alat tukar & satuan hitung","Penimbun kekayaan","Standar pembayaran","Pembayaran utang"],
+      correct:0,
+      topik:"uang",
+      trik:"Asli hanya 2: tukar & hitung."
+    },
+    {
+      q:"Dampak positif modernisasi adalah…",
+      a:["Produksi meningkat","Kesenjangan sosial","Kerusakan lingkungan","Individualisme"],
+      correct:0,
+      topik:"dampakModern",
+      trik:"Positif modernisasi = produksi ↑, efisien."
+    },
+    {
+      q:"Contoh perubahan direncanakan…",
+      a:["Pembangunan jalan","Bencana alam","Perubahan mode","Urbanisasi spontan"],
+      correct:0,
+      topik:"perubahanSosial",
+      trik:"Direncanakan = ada program/proyek."
+    },
+    {
+      q:"Nilai riil uang adalah…",
+      a:["Daya beli","Nilai nominal","Nilai intrinsik","Nilai eksternal"],
+      correct:0,
+      topik:"uang",
+      trik:"Riil = daya beli."
+    }
+  ];
+  let qList = shuffle(bank).slice(0,8);
+  let i=0;
+  function show(){
+    if(i>=qList.length){ endGame(); return; }
+    const q=qList[i];
+    $('#gameContent').innerHTML = `
+      <div class="qBox"><strong>Soal ${i+1}/${qList.length}</strong><br>${q.q}</div>
+      ${q.a.map((opt,idx)=>`<div class="opt" data-idx="${idx}">${opt}</div>`).join('')}
+      <div id="fbCampur${i}"></div>
+    `;
+    $('#gameContent').querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{
+        if(+el.dataset.idx!==q.correct){
+          $(`#fbCampur${i}`).innerHTML = feedbackSalah("Benar: "+q.a[q.correct], q.trik);
+        } else score++;
+        total++;
+        updateStat();
+        i++;
+        setTimeout(show,1200);
+      };
+    });
+  }
+  updateStat();
+  show();
+}
+
+/* ===== INIT ===== */
+renderMenu();
+</script>
+</body>
+</html>
